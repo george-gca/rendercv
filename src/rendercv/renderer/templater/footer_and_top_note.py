@@ -15,6 +15,7 @@ def render_top_note_template(
     name: str | None,
     single_date_template: str,
     string_processors: list[Callable[[str], str]] | None = None,
+    show_top_note: bool = True,
 ) -> str:
     """Render top note by substituting placeholders and applying string processors.
 
@@ -42,10 +43,17 @@ def render_top_note_template(
         name: CV owner name for placeholder substitution.
         single_date_template: Template for date formatting.
         string_processors: Optional processors for markdown parsing and formatting.
+        show_top_note: Whether to show the top note or not.
 
     Returns:
         Rendered top note with substituted placeholders.
     """
+    if not show_top_note:
+        return "none"
+
+    if not top_note_template:
+        return "none"
+
     if string_processors is None:
         string_processors = []
 
@@ -83,6 +91,7 @@ def render_footer_template(
     name: str | None,
     single_date_template: str,
     string_processors: list[Callable[[str], str]] | None = None,
+    show_footer: bool = True,
 ) -> str:
     """Render footer by substituting placeholders and wrapping in Typst context block.
 
@@ -110,10 +119,17 @@ def render_footer_template(
         name: CV owner name for placeholder substitution.
         single_date_template: Template for date formatting.
         string_processors: Optional processors for markdown parsing and formatting.
+        show_footer: Whether to show the footer or not.
 
     Returns:
         Typst context block with rendered footer content.
     """
+    if not show_footer:
+        return "none"
+
+    if not footer_template:
+        return "none"
+
     if string_processors is None:
         string_processors = []
 

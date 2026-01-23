@@ -51,6 +51,7 @@ def process_model(
         name=rendercv_model.cv.name,
         single_date_template=rendercv_model.design.templates.single_date,
         string_processors=string_processors,
+        show_top_note=rendercv_model.design.page.show_top_note,
     )
 
     rendercv_model.cv.footer = render_footer_template(  # ty: ignore[unresolved-attribute]
@@ -60,6 +61,7 @@ def process_model(
         name=rendercv_model.cv.name,
         single_date_template=rendercv_model.design.templates.single_date,
         string_processors=string_processors,
+        show_footer=rendercv_model.design.page.show_footer,
     )
     if rendercv_model.cv.sections is None:
         return rendercv_model

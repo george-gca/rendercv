@@ -178,3 +178,21 @@ class TestProcessModel:
         assert result.cv.name == "Jane Doe"
         assert result.cv.headline == "Software Engineer"
         assert hasattr(result.cv, "connections")
+
+    def test_process_model_hides_footer_and_top_note_when_disabled(self, model):
+        model.design.page.show_footer = False
+        model.design.page.show_top_note = False
+
+        result = process_model(model, "typst")
+
+        assert result.cv.footer == "none"
+        assert result.cv.top_note == "none"
+
+    def test_process_model_hides_footer_and_top_note_when_empty(self, model):
+        model.design.templates.footer = ""
+        model.design.templates.top_note = ""
+
+        result = process_model(model, "typst")
+
+        assert result.cv.footer == "none"
+        assert result.cv.top_note == "none"
