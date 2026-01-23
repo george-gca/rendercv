@@ -5,7 +5,7 @@
 #show: rendercv.with(
   name: "{{ cv.plain_name }}",
   footer: {{ cv.footer }},
-  top-note: [ {{ cv.top_note }} ],
+  top-note: {% if cv.top_note == "none" %}none{% else %}[ {{ cv.top_note }} ]{% endif %},
   locale-catalog-language: "{{ locale.language_iso_639_1 }}",
   page-size: "{{ design.page.size }}",
   page-top-margin: {{ design.page.top_margin }},

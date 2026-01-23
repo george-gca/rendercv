@@ -35,6 +35,29 @@ def test_render_top_note_template(name, top_note_template, expected):
     assert result == expected
 
 
+def test_render_top_note_template_hidden():
+    result = render_top_note_template(
+        "Some template",
+        locale=EnglishLocale(),
+        current_date=Date(2024, 1, 1),
+        name="John Doe",
+        single_date_template="MONTH_ABBREVIATION YEAR",
+        show_top_note=False,
+    )
+    assert result == "none"
+
+
+def test_render_top_note_template_empty_template():
+    result = render_top_note_template(
+        "",
+        locale=EnglishLocale(),
+        current_date=Date(2024, 1, 1),
+        name="John Doe",
+        single_date_template="MONTH_ABBREVIATION YEAR",
+    )
+    assert result == "none"
+
+
 @pytest.mark.parametrize(
     ("name", "footer_template", "expected"),
     [
@@ -61,3 +84,26 @@ def test_render_footer_template(name, footer_template, expected):
     assert result.replace("context { [", "").replace("] }", "") == expected.replace(
         "TYPST_PAGE_NUMBER", "#str(here().page())"
     ).replace("TYPST_TOTAL_PAGES", "#str(counter(page).final().first())")
+
+
+def test_render_footer_template_hidden():
+    result = render_footer_template(
+        "Some template",
+        locale=EnglishLocale(),
+        current_date=Date(2024, 1, 1),
+        name="John Doe",
+        single_date_template="MONTH_ABBREVIATION YEAR",
+        show_footer=False,
+    )
+    assert result == "none"
+
+
+def test_render_footer_template_empty_template():
+    result = render_footer_template(
+        "",
+        locale=EnglishLocale(),
+        current_date=Date(2024, 1, 1),
+        name="John Doe",
+        single_date_template="MONTH_ABBREVIATION YEAR",
+    )
+    assert result == "none"
